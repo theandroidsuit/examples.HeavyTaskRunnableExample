@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.Random;
+
 
 public abstract class HeavyTaskActivity extends Activity {
 
@@ -58,15 +60,39 @@ public abstract class HeavyTaskActivity extends Activity {
     }
 
 
-    protected abstract Runnable heavyTaskRunnable();
-
     protected void doHeavyTask(){
 
         Log.d(TAG, "doHeavyTask()");
 
-        Runnable action = heavyTaskRunnable();
+        Runnable action = doHeavyTaskRunnable();
 
         Thread backgroundTask = new Thread(action);
         backgroundTask.start();
     }
+
+    protected Runnable doHeavyTaskRunnable(){
+        return new Runnable() {
+
+            @Override
+            public void run() {
+
+                try {
+
+                    heavyTask();
+
+                }catch (Exception e){}
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        returnResults();
+                    }
+                });
+            }
+        };
+    }
+
+
+    protected abstract void heavyTask() throws Exception;
+    protected abstract void returnResults();
 }

@@ -38,55 +38,32 @@ public class MainActivity extends HeavyTaskActivity {
 
         Log.d(TAG, "downloadImage()");
 
-        try {
+        mImage.setImageDrawable(null);
+        mProgressBar.setVisibility(View.VISIBLE);
 
-            mImage.setImageDrawable(null);
-            mProgressBar.setVisibility(View.VISIBLE);
+        // Do heavy Task in separately thread
+        doHeavyTask();
 
-            // Do heavy Task in separately thread
-            doHeavyTask();
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 
-    public  void setImage(){
-        Log.d(TAG, "setImage()");
+    public  void returnResults(){
+        Log.d(TAG, "returnResults()");
 
         mProgressBar.setVisibility(View.GONE);
         mImage.setImageResource(R.drawable.android_suit);
-
     }
 
 
     @Override
-    protected Runnable heavyTaskRunnable() {
-        return new Runnable() {
+    protected void heavyTask() throws Exception{
+        Log.d(TAG, "heavyTaskRunnable()");
 
-            @Override
-            public void run() {
+        Random rnd = new Random();
+        int randomSecs = rnd.nextInt((10 - 5) + 1) + 5;
 
-                try {
-                    Random rnd = new Random();
-                    int randomSecs = rnd.nextInt((10 - 5) + 1) + 5;
-
-
-                    // It is a heavy task that spends a lot of time
-                    Thread.sleep(randomSecs * 1000);
-
-                }catch (InterruptedException e){}
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        setImage();
-                    }
-                });
-            }
-        };
+        // It is a heavy task that spends a lot of time
+        Thread.sleep(randomSecs * 1000);
     }
 
 }
