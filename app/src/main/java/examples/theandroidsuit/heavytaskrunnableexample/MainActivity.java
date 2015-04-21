@@ -57,7 +57,7 @@ public class MainActivity extends HeavyTaskActivity {
 
     @Override
     protected void heavyTask() throws Exception{
-        Log.d(TAG, "heavyTaskRunnable()");
+        Log.d(TAG, "heavyTask()");
 
         Random rnd = new Random();
         int randomSecs = rnd.nextInt((10 - 5) + 1) + 5;
