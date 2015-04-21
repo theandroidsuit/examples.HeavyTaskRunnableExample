@@ -46,7 +46,7 @@ public class MainActivity extends HeavyTaskActivity {
 
     }
 
-
+    @Override
     public  void returnResults(){
         Log.d(TAG, "returnResults()");
 
