@@ -36,7 +36,7 @@ public class MainActivity extends HeavyTaskActivity {
 
     public void callHeavyTask(View view) {
 
-        Log.d(TAG, "downloadImage()");
+        Log.d(TAG, "callHeavyTask()");
 
         mImage.setImageDrawable(null);
         mProgressBar.setVisibility(View.VISIBLE);
